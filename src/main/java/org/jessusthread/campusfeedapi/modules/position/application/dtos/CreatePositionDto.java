@@ -1,4 +1,4 @@
-package org.jessusthread.campusfeedapi.modules.position.infrastructure.dtos;
+package org.jessusthread.campusfeedapi.modules.position.application.dtos;
 
 /*
     What exactly is a Java record?
