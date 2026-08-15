@@ -13,5 +13,7 @@ public interface PositionRepository {
 
     Position update(Position position, String id);
 
+    Position activateById(String id);
+
     boolean deleteById(String id);
 }

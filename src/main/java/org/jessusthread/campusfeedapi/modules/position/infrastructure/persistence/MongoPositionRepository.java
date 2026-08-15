@@ -68,6 +68,19 @@ public class MongoPositionRepository implements PositionRepository {
         return this.findById(id);
     }
 
+    public Position activateById(String id) {
+        ObjectId objectId = new ObjectId(id);
+
+        UpdateResult updateResult = collection.updateOne(
+                Filters.eq("_id", objectId),
+                Updates.set("activate", true)
+        );
+
+        if (updateResult.getModifiedCount() == 0) return null;
+
+        return this.findById(id);
+    }
+
     public boolean deleteById(String id) {
         ObjectId objectId = new ObjectId(id);
 
