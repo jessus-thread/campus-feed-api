@@ -1,5 +1,6 @@
 package org.jessusthread.campusfeedapi.modules.position.application.usecases;
 
+import org.jessusthread.campusfeedapi.core.exceptions.ConflictException;
 import org.jessusthread.campusfeedapi.modules.position.application.dtos.CreatePositionDto;
 import org.jessusthread.campusfeedapi.modules.position.domain.Position;
 import org.jessusthread.campusfeedapi.modules.position.domain.PositionRepository;
@@ -21,7 +22,7 @@ public class CreatePositionUseCase {
         }
 
         if (existingPosition.isActive())
-            throw new IllegalStateException("The position '" + positionDto.name() + "' already exists and is active.");
+            throw new ConflictException("The position '" + positionDto.name() + "' already exists and is active.");
 
         return this.activatePosition(existingPosition);
     }
