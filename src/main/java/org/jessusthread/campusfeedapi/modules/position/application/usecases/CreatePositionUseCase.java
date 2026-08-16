@@ -11,13 +11,22 @@ public class CreatePositionUseCase {
         this.repository = repository;
     }
 
-//    public Position create(CreatePositionDto position) {
-//        Position existingPosition = this.repository.findByName(position.name());
-//
-//
-//    }
+    public Position execute(CreatePositionDto positionDto) {
+        Position existingPosition = this.repository.findByName(positionDto.name());
 
-//    public Position activatePosition(Position position) {
-//
-//    }
+        if (existingPosition == null) {
+            Position position = new Position(positionDto.name());
+
+            return this.repository.create(position);
+        }
+
+        if (existingPosition.isActive())
+            throw new IllegalStateException("The position '" + positionDto.name() + "' already exists and is active.");
+
+        return this.activatePosition(existingPosition);
+    }
+
+    private Position activatePosition(Position position) {
+        return this.repository.activateById(position.getId());
+    }
 }

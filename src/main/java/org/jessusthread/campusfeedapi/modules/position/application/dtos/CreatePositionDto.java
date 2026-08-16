@@ -25,4 +25,17 @@ package org.jessusthread.campusfeedapi.modules.position.application.dtos;
 */
 public record CreatePositionDto(
     String name
-) {}
+) {
+    // Compact builder
+    public CreatePositionDto {
+        if (name == null || name.trim().isEmpty())
+            throw new IllegalArgumentException("The position name cannot be null or empty");
+
+        name = name.trim().toUpperCase();
+
+        int nameLength = name.length();
+
+        if (nameLength < 3 || nameLength > 50)
+            throw new IllegalArgumentException("The position name must be between 3 to 50 ");
+    }
+}
