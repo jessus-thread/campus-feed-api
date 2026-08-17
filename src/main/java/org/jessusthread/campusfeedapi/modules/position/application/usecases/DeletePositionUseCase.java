@@ -1,21 +1,19 @@
 package org.jessusthread.campusfeedapi.modules.position.application.usecases;
 
-import org.jessusthread.campusfeedapi.core.exceptions.NotFoundException;
-import org.jessusthread.campusfeedapi.modules.position.domain.Position;
 import org.jessusthread.campusfeedapi.modules.position.domain.PositionRepository;
+import org.jessusthread.campusfeedapi.modules.position.domain.services.PositionValidator;
 
 public class DeletePositionUseCase {
     private final PositionRepository repository;
+    private final PositionValidator validator;
 
-    public DeletePositionUseCase(PositionRepository repository) {
+    public DeletePositionUseCase(PositionRepository repository, PositionValidator validator) {
         this.repository = repository;
+        this.validator = validator;
     }
 
     public void execute(String id) {
-        Position existingPosition = this.repository.findById(id);
-
-        if (existingPosition == null)
-            throw new NotFoundException("The position with the ID (" + id + ") does not exist.");
+        this.validator.requireExists(id);
 
         boolean wasEliminated = this.repository.deleteById(id);
 

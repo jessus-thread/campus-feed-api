@@ -55,8 +55,8 @@ public class MongoPositionRepository implements PositionRepository {
         return this.mapPosition(position);
     }
 
-    public Position update(Position position, String id) {
-        ObjectId objectId = new ObjectId(id);
+    public Position update(Position position) {
+        ObjectId objectId = new ObjectId(position.getId());
 
         UpdateResult updateResult = collection.updateOne(
                 Filters.eq("_id", objectId),
@@ -65,7 +65,7 @@ public class MongoPositionRepository implements PositionRepository {
 
         if (updateResult.getModifiedCount() == 0) return null;
 
-        return this.findById(id);
+        return this.findById(position.getId());
     }
 
     public Position activateById(String id) {

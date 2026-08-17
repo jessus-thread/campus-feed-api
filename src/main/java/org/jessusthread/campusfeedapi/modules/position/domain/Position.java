@@ -14,6 +14,11 @@ public class Position {
     private String name;
     private boolean active;
 
+    public Position(String name, String id) {
+        this.name = name;
+        this.id = id;
+    }
+
     public Position(String name) {
         this.name = name;
     }

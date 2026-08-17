@@ -11,7 +11,7 @@ public interface PositionRepository {
 
     List<Position> getPositions();
 
-    Position update(Position position, String id);
+    Position update(Position position);
 
     Position activateById(String id);
 
