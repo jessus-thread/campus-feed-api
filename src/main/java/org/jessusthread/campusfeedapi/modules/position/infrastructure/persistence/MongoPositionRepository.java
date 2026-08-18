@@ -73,7 +73,7 @@ public class MongoPositionRepository implements PositionRepository {
 
         UpdateResult updateResult = collection.updateOne(
                 Filters.eq("_id", objectId),
-                Updates.set("activate", true)
+                Updates.set("active", true)
         );
 
         if (updateResult.getModifiedCount() == 0) return null;
